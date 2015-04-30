@@ -30,81 +30,18 @@ public class GameManager : MonoBehaviour
     public CompleteProject.PlayerHealth ph;
     // persistent data
     
-    int currentWave
-    {
-        get
-        {
-            return 9 - rylai.SecondDigit;
-        }
-        set
-        {
-            rylai.SecondDigit = 9 - value;
-        }
-    }
+	int currentWave;
 
-    int fountainHealth
-    {
-        get
-        {
-            return rylai.FourthDigit + 1;
-        }
-        set
-        {
-            rylai.FourthDigit = value - 1;
-        }
-    }
+	int fountainHealth;
 
-    //int _playerHealth;
-    //public int playerHealth {
-    //    get { 
-    //        return _playerHealth; 
-    //    }
-    //    set { 
-    //        if (_playerHealth == value) {
-    //            return;
-    //        }
-    //        _playerHealth = value;
-    //        SyncPlayerHealthSlider();
-    //    }
-    //}
-
-    public int playerHealth
-    {
-        get
-        {
-            var fd = rylai.FirstDigit * 20;
-            var td = 10 - rylai.ThirdDigit;
-
-            return td + (fd > 80 ? fd - 90 : fd);
-        }
-        set
-        {
-            if (playerHealth == value)
-            {
-                return;
-            }
-
-            var v99 = value - 1;
-            var uni = 9 - (v99 - (v99 / 10) * 10);
-            
-            var v90 = value - (10 - uni);
-            var dec = ((v90 / 10) % 2 == 1 ? v90 + 90 : v90) / 20;
-
-            rylai.FirstDigit = dec;
-            rylai.ThirdDigit = uni;
-
-            SyncPlayerHealthSlider();
-        }
-    }
+	public int playerHealth;
 
 
     public static GameManager Instance { get; private set; }
-    CycleManager rylai;
 
     void Awake()
     {
         Instance = this;
-        rylai = CycleManager.Instance;
 		playerHealth = 100;
 		fountainHealth = 10;
 		currentWave = 0;
