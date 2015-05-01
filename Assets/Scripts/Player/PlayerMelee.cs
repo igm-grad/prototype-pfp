@@ -28,6 +28,19 @@ public class PlayerMelee : MonoBehaviour
         {
             MouseDownDidEnd(0, Input.mousePosition);
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            MouseDownBegan(1, Input.mousePosition);
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            MouseDownDidChange(1, Input.mousePosition);
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            MouseDownDidEnd(1, Input.mousePosition);
+        }
 	}
 
     Transform RayCastToScreenPosition(Vector3 screenPosition)
@@ -43,34 +56,79 @@ public class PlayerMelee : MonoBehaviour
 
     void MouseDownBegan(int mouseButton, Vector3 screenPosition)
     {
-        var transform = RayCastToScreenPosition(screenPosition);
-        if (transform)
+        switch (mouseButton)
         {
-            trackedTransforms.Add(transform);
+            case 0:
+                {
+                    var transform = RayCastToScreenPosition(screenPosition);
+                    if (transform)
+                    {
+                        trackedTransforms.Add(transform);
+                    }
+                    break;
+                }
+            case 1:
+                {
+                    break;
+                }
+            default:
+                
+                    break;
+                
         }
+        
     }
 
     void MouseDownDidChange(int mouseButton, Vector3 screenPosition)
     {
-        var transform = RayCastToScreenPosition(screenPosition);
-        if (transform)
+        switch (mouseButton)
         {
-            trackedTransforms.Add(transform);
+            case 0:
+                {
+                    var transform = RayCastToScreenPosition(screenPosition);
+                    if (transform)
+                    {
+                        trackedTransforms.Add(transform);
+                    }
+                    break;
+                }
+            case 1:
+                {
+                    break;
+                }
+            default:
+                
+                    break;
+                
         }
+        
     }
 
     void MouseDownDidEnd(int mouseButton, Vector3 screenPosition)
     {
-        var transform = RayCastToScreenPosition(screenPosition);
-        if (transform)
+        switch (mouseButton)
         {
-            trackedTransforms.Add(transform);
+            case 0:
+                {
+                    var transform = RayCastToScreenPosition(screenPosition);
+                    if (transform)
+                    {
+                        trackedTransforms.Add(transform);
+                    }
+
+                    // Call Attack
+                    break;
+                }
+            case 1:
+                {
+                    break;
+                }
+            default:
+                
+                    break;
+                
         }
+        
 
-        Debug.Log("TRACKED TRANSFORMS: " + trackedTransforms.Count() + "\n");
-        // Call Attack
-
-        //Empty Set
-        trackedTransforms.Clear();
     }
 }
