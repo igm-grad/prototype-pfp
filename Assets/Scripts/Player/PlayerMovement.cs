@@ -21,6 +21,7 @@ namespace CompleteProject
         private Vector3 screenMovementRight ;
         public float cameraSmoothing = 0.01f;
         private Transform cursorObject ;
+        private PlayerMelee playerMelee;
 
 #if !MOBILE_INPUT
        public int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
@@ -46,7 +47,9 @@ namespace CompleteProject
             playerMovementPlane = new Plane(this.transform.up, this.transform.position + this.transform.up * cursorPlaneHeight);
             screenMovementSpace = Quaternion.Euler(0, mainCameraTransform.eulerAngles.y, 0);
             screenMovementForward = screenMovementSpace * Vector3.forward;
-            screenMovementRight = screenMovementSpace * Vector3.right;	
+            screenMovementRight = screenMovementSpace * Vector3.right;
+
+            playerMelee = GetComponent<PlayerMelee>();
 
 	
         }
@@ -127,6 +130,8 @@ namespace CompleteProject
         void Turning ()
         {
 #if !MOBILE_INPUT
+
+            if (playerMelee.isAttacking) return;
             // Create a ray from the mouse cursor on screen in the direction of the camera.
             Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 
