@@ -190,6 +190,7 @@ public class PlayerMelee : MonoBehaviour
         vector = (Quaternion.AngleAxis(launchAngle * -Mathf.Rad2Deg, localRight) * vector);
 
         var projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        projectile.layer = 9;
         projectile.transform.position = transform.position + transform.forward * 2 + Vector3.up;
         projectile.AddComponent<Rigidbody>();
         projectile.GetComponent<Rigidbody>().velocity = vector.normalized * v0;
@@ -253,6 +254,7 @@ public class PlayerMelee : MonoBehaviour
         {
             i += Time.deltaTime * rate;
             thisTransform.position = Vector3.Lerp(startPos, endPos, i);
+            thisTransform.position = new Vector3(thisTransform.position.x, 1.086f, thisTransform.position.z);
             yield return 0;
         }
     }
