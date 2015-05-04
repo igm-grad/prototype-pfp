@@ -77,11 +77,8 @@ public class PlayerMelee : MonoBehaviour
         {
             case 0:
                 {
-                    var transform = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
-                    if (transform)
-                    {
-                        trackedTransforms.Add(transform);
-                    }
+                    var t = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
+                    AddToTargetList(t);
                     break;
                 }
             case 1:
@@ -102,17 +99,8 @@ public class PlayerMelee : MonoBehaviour
         {
             case 0:
                 {
-                    var transform = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
-                    if (transform)
-                    {
-                        trackedTransforms.Add(transform);
-                        if (markerPrefab && !transform.FindChild("Marker(Clone)"))
-                        {
-                            GameObject m = Instantiate(markerPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-                            m.transform.parent = transform;
-                            m.transform.localPosition = new Vector3(0, 1.5f, 0);
-                        }
-                    }
+                    var t = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
+                    AddToTargetList(t);
                     break;
                 }
             case 1:
@@ -133,17 +121,8 @@ public class PlayerMelee : MonoBehaviour
         {
             case 0:
                 {
-                    var transform = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
-                    if (transform)
-                    {
-                        trackedTransforms.Add(transform);
-                        if (markerPrefab && !transform.FindChild("Marker(Clone)"))
-                        {
-                            GameObject m = Instantiate(markerPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-                            m.transform.parent = transform;
-                            m.transform.localPosition = new Vector3(0, 1.5f, 0);
-                        }
-                    }
+                    var t = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
+                    AddToTargetList(t);
 
                     // Call Attack
                     StartCoroutine(Ninja());
@@ -177,6 +156,22 @@ public class PlayerMelee : MonoBehaviour
 
     }
 
+    void AddToTargetList(Transform transform)
+    {
+        if (transform)
+        {
+            trackedTransforms.Add(transform);
+
+            // Add marker
+            if (markerPrefab && !transform.FindChild("Marker(Clone)"))
+            {
+                GameObject m = Instantiate(markerPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                m.transform.parent = transform;
+                m.transform.localPosition = new Vector3(0, transform.collider.bounds.size.y + 0.5f, 0);
+            }
+        }
+    }
+
     void LaunchProjectile(Vector3 vector)
     {
         var height = 5.0f;
@@ -207,6 +202,8 @@ public class PlayerMelee : MonoBehaviour
     {
         isAttacking = true;
         trail.enabled = true;
+        collider.enabled = false;
+
         foreach (Transform t in trackedTransforms)
         {
             // Check if target still alive
@@ -247,6 +244,7 @@ public class PlayerMelee : MonoBehaviour
         yield return new WaitForSeconds(AnimationDelay*2);
 
         trail.enabled = false;
+        collider.enabled = true;
     }
 
     IEnumerator MoveObject(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
