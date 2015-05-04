@@ -8,7 +8,6 @@ public class PlayerMelee : MonoBehaviour
 {
     private HashSet<Transform> trackedTransforms;
     public float maxProjectileDistance;
-    public float projectileLaunchSpeed;
     public float AnimationDelay = 0.1f;
 
 	// Use this for initialization
@@ -104,9 +103,17 @@ public class PlayerMelee : MonoBehaviour
                     break;
                 }
             case 1:
-                    // Use to update visual if we want to provide feedback to where the grenade will land.
+                {
+                     var ray = Camera.main.ScreenPointToRay(screenPosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Floor")))
+                    {
+                        var point = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                        Debug.DrawLine(transform.position, point);
+                    }
                     break;
-            default:
+                }
+           default:
                     break;
                 
         }
@@ -134,8 +141,8 @@ public class PlayerMelee : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Floor")))
                     {
-                        Vector3 projectileDirection = (hit.point - transform.position);
-                        projectileDirection.y = transform.position.y;
+                        var target = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                        Vector3 projectileDirection = (target - transform.position);
 
                         if (projectileDirection.magnitude > maxProjectileDistance)
                         {
@@ -178,22 +185,13 @@ public class PlayerMelee : MonoBehaviour
         var distance = vector.magnitude;
         var launchAngle = Mathf.Atan((height * 4) / distance);
         var v0 = Mathf.Sqrt((distance * 9.78f) / Mathf.Sin(2 * launchAngle));
-        Debug.Log("MAG1: " + distance + "\n");
-        Debug.Log("DENOM: " + Mathf.Sin(2 * launchAngle) + "\n");
-        Debug.Log(" V: " + v0 + "\n");
-
-
-        launchAngle = -launchAngle * Mathf.Rad2Deg;
-        Debug.Log("LAUNCH ANGLE: " + launchAngle + "\n");
-
-        vector = (Quaternion.Euler(launchAngle, 0.0f, 0.0f) * vector);
-        Debug.Log("DIR: " + vector + "\n");
+       
+        var localRight = Vector3.Cross(this.transform.up, vector.normalized);
+        vector = (Quaternion.AngleAxis(launchAngle * -Mathf.Rad2Deg, localRight) * vector);
 
         var projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         projectile.transform.position = transform.position + transform.forward * 2 + Vector3.up;
         projectile.AddComponent<Rigidbody>();
-       // projectile.AddComponent<Projectile>();
-       // projectile.GetComponent<Rigidbody>().useGravity = false;
         projectile.GetComponent<Rigidbody>().velocity = vector.normalized * v0;
     }
 
