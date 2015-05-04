@@ -11,6 +11,7 @@ public class PlayerMelee : MonoBehaviour
     public float AnimationDelay = 0.1f;
 
 	// Use this for initialization
+    public GameObject markerPrefab;
     public ParticleSystem ninjaParticles;
     private TrailRenderer trail;
         
@@ -104,6 +105,12 @@ public class PlayerMelee : MonoBehaviour
                     if (transform)
                     {
                         trackedTransforms.Add(transform);
+                        if (markerPrefab && !transform.FindChild("Marker(Clone)"))
+                        {
+                            GameObject m = Instantiate(markerPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                            m.transform.parent = transform;
+                            m.transform.localPosition = new Vector3(0, 1.5f, 0);
+                        }
                     }
                     break;
                 }
@@ -137,6 +144,12 @@ public class PlayerMelee : MonoBehaviour
                     if (transform)
                     {
                         trackedTransforms.Add(transform);
+                        if (markerPrefab && !transform.FindChild("Marker(Clone)"))
+                        {
+                            GameObject m = Instantiate(markerPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                            m.transform.parent = transform;
+                            m.transform.localPosition = new Vector3(0, 1.5f, 0);
+                        }
                     }
 
                     // Call Attack
