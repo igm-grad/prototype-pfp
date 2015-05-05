@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Animator canvasAnimator;
     public Slider playerHealthSlider;
     public Slider fountainHealthSlider;
+    public Slider staminaSlider;
     public Text waveText;
     public Text waveOutOfText;
     public Text gameOverText;
@@ -32,7 +33,39 @@ public class GameManager : MonoBehaviour
 	int currentWave;
 
 	int fountainHealth;
-	public int playerHealth;
+    private int _playerHealth;
+
+    public int playerHealth
+    {
+        get { return _playerHealth; }
+        set {
+            if (_playerHealth == value)
+            {
+                return;
+            }
+
+            _playerHealth = value;
+            SyncPlayerHealthSlider();
+        }
+    }
+
+    private int _stamina;
+
+    public int stamina
+    {
+        get { return _stamina; }
+        set
+        {
+            if (_stamina == value)
+            {
+                return;
+            }
+
+            _stamina = value;
+            SyncStaminaSlider();
+        }
+    }
+
 
 
     public static GameManager Instance { get; private set; }
@@ -42,10 +75,12 @@ public class GameManager : MonoBehaviour
         Instance = this;
 		playerHealth = 100;
 		fountainHealth = 10;
+        stamina = 100;
 		currentWave = 0;
 		
         SyncFountainHealthSlider();
         SyncPlayerHealthSlider();
+        SyncStaminaSlider();
 
         fountainDead = false;
 
@@ -442,6 +477,12 @@ public class GameManager : MonoBehaviour
     private void SyncPlayerHealthSlider()
     {
         SyncSlider(playerHealthSlider, playerHealth);
+    }
+
+
+    private void SyncStaminaSlider()
+    {
+        SyncSlider(staminaSlider, stamina);
     }
 
 
