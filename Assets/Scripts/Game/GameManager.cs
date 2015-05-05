@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-		playerHealth = 100;
+		playerHealth = 300;
 		fountainHealth = 10;
 		currentWave = 0;
 		
@@ -59,8 +59,8 @@ public class GameManager : MonoBehaviour
                 Groups = new [] {
                     new WaveGroup {
                         Delay = 0,
-                        SpawnIndices = new [] { 0 },
-                        Size = 4,
+                        SpawnIndices = new [] { 0,1,2,3 },
+                        Size = 50,
                         EnemyPrefab = ZomBear,
                     },
                     new WaveGroup {
