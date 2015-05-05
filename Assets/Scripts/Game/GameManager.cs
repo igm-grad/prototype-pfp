@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public Slider fountainHealthSlider;
     public Text waveText;
     public Text waveOutOfText;
-    public Text waveOutOfTextShadow;
     public Text gameOverText;
 
     Wave[] waves;
@@ -33,7 +32,6 @@ public class GameManager : MonoBehaviour
 	int currentWave;
 
 	int fountainHealth;
-
 	public int playerHealth;
 
 
@@ -390,7 +388,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(startDelay);
         waveText.text = "Wave #" + (currentWave + 1);
         waveOutOfText.text = "Wave " + (currentWave + 1) + "/10";
-        waveOutOfTextShadow.text = "Wave " + (currentWave + 1) + "/10";
         canvasAnimator.SetTrigger("Wave");
 
         foreach (var waveGroup in waves[currentWave].Groups)
