@@ -93,6 +93,11 @@ namespace CompleteProject
             // Turn the collider into a trigger so shots can pass through it.
             capsuleCollider.isTrigger = true;
 
+            // Remove markers
+            Transform marker = transform.FindChild("Marker(Clone)");
+            if (marker)
+                Destroy(marker.gameObject);
+
             // Tell the animator that the enemy is dead.
             anim.SetTrigger ("Dead");
 

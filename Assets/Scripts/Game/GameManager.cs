@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public Slider fountainHealthSlider;
     public Text waveText;
     public Text waveOutOfText;
-    public Text waveOutOfTextShadow;
     public Text gameOverText;
 
     Wave[] waves;
@@ -33,7 +32,6 @@ public class GameManager : MonoBehaviour
 	int currentWave;
 
 	int fountainHealth;
-
 	public int playerHealth;
 
 
@@ -42,7 +40,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-		playerHealth = 100;
+		playerHealth = 300;
 		fountainHealth = 10;
 		currentWave = 0;
 		
@@ -59,8 +57,8 @@ public class GameManager : MonoBehaviour
                 Groups = new [] {
                     new WaveGroup {
                         Delay = 0,
-                        SpawnIndices = new [] { 0 },
-                        Size = 4,
+                        SpawnIndices = new [] { 0,1,2,3 },
+                        Size = 50,
                         EnemyPrefab = ZomBear,
                     },
                     new WaveGroup {
@@ -390,7 +388,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(startDelay);
         waveText.text = "Wave #" + (currentWave + 1);
         waveOutOfText.text = "Wave " + (currentWave + 1) + "/10";
-        waveOutOfTextShadow.text = "Wave " + (currentWave + 1) + "/10";
         canvasAnimator.SetTrigger("Wave");
 
         foreach (var waveGroup in waves[currentWave].Groups)
