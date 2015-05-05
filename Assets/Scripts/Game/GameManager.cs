@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject ZomBunny;
     public GameObject ZomBear;
     public float spawnDelay = .5f;
+    public float staminaDropRate = 2f;
+    public float staminaRegenRate = 1f; 
 
     public Animator canvasAnimator;
     public Slider playerHealthSlider;
@@ -26,6 +28,8 @@ public class GameManager : MonoBehaviour
     bool isGameOver;
     bool fountainDead;
     bool wasLastWave;
+
+    public bool IsConsumingStamina { get; set; }
 
     public CompleteProject.PlayerHealth ph;
     // persistent data
@@ -49,9 +53,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private int _stamina;
+    private float _stamina;
 
-    public int stamina
+    public float stamina
     {
         get { return _stamina; }
         set
@@ -73,7 +77,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-		playerHealth = 300;
+		playerHealth = 100;
 		fountainHealth = 10;
         stamina = 100;
 		currentWave = 0;
@@ -393,6 +397,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        stamina = Mathf.Clamp(stamina + (Time.deltaTime * (IsConsumingStamina ? -staminaDropRate : staminaRegenRate)), 0, 100);
+
         if (!isGameOver && !isSpawning && enemiesOnCamp == 0)
         {
             if (currentWave == 9)
@@ -482,7 +488,7 @@ public class GameManager : MonoBehaviour
 
     private void SyncStaminaSlider()
     {
-        SyncSlider(staminaSlider, stamina);
+        SyncSlider(staminaSlider, (int)stamina);
     }
 
 

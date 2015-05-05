@@ -78,6 +78,7 @@ public class PlayerMelee : MonoBehaviour
                 {
                     timer = Time.time;
                     var t = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
+                    GameManager.Instance.IsConsumingStamina = true;
                     AddToTargetList(t);
                     break;
                 }
@@ -99,7 +100,7 @@ public class PlayerMelee : MonoBehaviour
         {
             case 0:
                 {
-                    if ((Time.time - timer) >= 5) { MouseDownDidEnd(0, screenPosition); return; }
+                    //if ((Time.time - timer) >= 5) { MouseDownDidEnd(0, screenPosition); return; }
                     var t = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
                     AddToTargetList(t);
                     break;
@@ -132,7 +133,7 @@ public class PlayerMelee : MonoBehaviour
                 {
                     var t = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
                     AddToTargetList(t);
-
+                    GameManager.Instance.IsConsumingStamina = false;
                     // Call Attack
                     StartCoroutine(Ninja());
                     break;
@@ -167,7 +168,7 @@ public class PlayerMelee : MonoBehaviour
 
     void AddToTargetList(Transform transform)
     {
-        if (transform && (Time.time - timer) < 5)
+        if (transform && GameManager.Instance.stamina > 0)
         {
             trackedTransforms.Add(transform);
 
@@ -176,7 +177,7 @@ public class PlayerMelee : MonoBehaviour
             {
                 GameObject m = Instantiate(markerPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                 m.transform.parent = transform;
-                m.transform.localPosition = new Vector3(0, transform.collider.bounds.size.y + 0.5f, 0);
+                m.transform.localPosition = new Vector3(0, transform.collider.bounds.size.y * .75f, 0);
             }
         }
     }
