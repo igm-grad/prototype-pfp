@@ -66,16 +66,17 @@ public class PlayerMelee : MonoBehaviour
         else { return null; }
     }
 
-   
+    float timer;
 
     void MouseDownBegan(int mouseButton, Vector3 screenPosition)
     {
-        if (isAttacking) return; 
+        if (isAttacking) return;
 
         switch (mouseButton)
         {
             case 0:
                 {
+                    timer = Time.time;
                     var t = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
                     AddToTargetList(t);
                     break;
@@ -92,12 +93,13 @@ public class PlayerMelee : MonoBehaviour
 
     void MouseDownDidChange(int mouseButton, Vector3 screenPosition)
     {
-        if (isAttacking) return; 
+        if (isAttacking) return;
 
         switch (mouseButton)
         {
             case 0:
                 {
+                    if ((Time.time - timer) >= 5) { MouseDownDidEnd(0, screenPosition); return; }
                     var t = RayCastToScreenPosition(screenPosition, LayerMask.GetMask("Shootable"));
                     AddToTargetList(t);
                     break;
@@ -165,7 +167,7 @@ public class PlayerMelee : MonoBehaviour
 
     void AddToTargetList(Transform transform)
     {
-        if (transform)
+        if (transform && (Time.time - timer) < 5)
         {
             trackedTransforms.Add(transform);
 
