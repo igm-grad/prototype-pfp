@@ -313,7 +313,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 22480072}
   m_Layer: 5
-  m_Name: StamenaGUI
+  m_Name: StaminaGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -643,7 +643,7 @@ GameObject:
   - 224: {fileID: 22488288}
   - 114: {fileID: 11488286}
   m_Layer: 5
-  m_Name: PlayerHealthSlider
+  m_Name: StaminaSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -892,8 +892,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: .0896553993, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: ac394e6e5080d754e8b437e5936fca3b, type: 3}
+  m_Color: {r: .0115700811, g: .0810704678, b: .786764741, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8bfbe43cb845db24eb64bf8fba8a06dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1069,8 +1069,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .823529422, g: 0, b: 0, a: 1}
-  m_Sprite: {fileID: 21300000, guid: ac394e6e5080d754e8b437e5936fca3b, type: 3}
+  m_Color: {r: .778093278, g: .823529422, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 248a7f6e29502a44b974cf71d7b09a6b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .823529422, g: 0, b: 0, a: 1}
-  m_Sprite: {fileID: 21300000, guid: ac394e6e5080d754e8b437e5936fca3b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c96b5dc61154b54cb46238bed6d8bf9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1824,15 +1824,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 116012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 189bfb9c6772b6b4a87e12cd8b9af36f, type: 3}
+  m_Script: {fileID: 11500000, guid: 51bd7a4842200e64bab487a39bc2c06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausePanel: {fileID: 22563562}
   resumeButton: {fileID: 11482180}
   restartButton: {fileID: 11482186}
   mainMenuButton: {fileID: 11482192}
   quitButton: {fileID: 11482198}
-  targetAlpha: 0
+  panel: {fileID: 22563562}
 --- !u!222 &22208824
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -2722,7 +2721,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!225 &22563562
 CanvasGroup:
@@ -2731,7 +2730,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182190}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
