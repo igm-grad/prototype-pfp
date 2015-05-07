@@ -17,7 +17,7 @@ public class PauseManager : MonoBehaviour {
     public bool IsPaused { get; private set; }
     float targetAlpha;
 
-    void Start()
+    public void Awake()
     {
         resumeButton.onClick.AddListener(OnResumeButtonClick);
         restartButton.onClick.AddListener(OnRestartButtonClick);
@@ -62,7 +62,7 @@ public class PauseManager : MonoBehaviour {
     private void Update()
     {
         panel.alpha = Mathf.Lerp(panel.alpha, targetAlpha, 0.25f);
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape)) 
         {
             Pause();
         }

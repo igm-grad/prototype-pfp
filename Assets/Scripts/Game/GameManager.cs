@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     bool isSpawning;
     bool isGameOver;
     bool fountainDead;
+    public bool gameLost;
+    public bool gameWon;
     bool wasLastWave;
 
     public bool IsConsumingStamina { get; set; }
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
 		playerHealth = 100;
 		fountainHealth = 10;
         stamina = 100;
-		currentWave = 0;
+		currentWave = 9;
 		
         SyncFountainHealthSlider();
         SyncPlayerHealthSlider();
@@ -405,7 +407,8 @@ public class GameManager : MonoBehaviour
             {
                 // win state
                 gameOverText.text = "Congratulations!";
-                isGameOver = true;
+                gameWon = true;
+                //isGameOver = true;
             }
             else
             {
@@ -511,6 +514,14 @@ public class GameManager : MonoBehaviour
 
         if (ph.isDead || fountainDead)
         {
+            gameLost = true;
+            isGameOver = true;
+            return true;
+        }
+
+        if (!isSpawning && enemiesOnCamp == 0)
+        {
+            gameWon = true;
             isGameOver = true;
             return true;
         }
