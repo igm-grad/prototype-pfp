@@ -79,7 +79,7 @@ namespace CompleteProject
             if (newHealth <= 0)
             {
                 died = true;
-                newHealth = 1;
+                newHealth = 0;
             }
 
             currentHealth = newHealth;
