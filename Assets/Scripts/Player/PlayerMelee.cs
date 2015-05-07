@@ -59,7 +59,7 @@ public class PlayerMelee : MonoBehaviour
     {
         var ray = Camera.main.ScreenPointToRay(screenPosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
+        if (Physics.SphereCast(ray, 5.0f, out hit, Mathf.Infinity, mask))
         {
             return hit.collider.gameObject.GetComponent<Transform>();
         }
