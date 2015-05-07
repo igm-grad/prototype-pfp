@@ -96,8 +96,8 @@ public class GameManager : MonoBehaviour
                 Groups = new [] {
                     new WaveGroup {
                         Delay = 0,
-                        SpawnIndices = new [] { 0,1,2,3 },
-                        Size = 50,
+                        SpawnIndices = new [] { 0, 1 },
+                        Size = 4,
                         EnemyPrefab = ZomBear,
                     },
                     new WaveGroup {
@@ -439,12 +439,21 @@ public class GameManager : MonoBehaviour
             var numSpawnIndices = waveGroup.SpawnIndices.Length;
             var spawnIndex = 0;
             var spawnSide = 1;
+            bool[] played = new bool[numSpawnIndices];
+            
             // spawn group
             for (int i = 0; i < waveGroup.Size; i++)
             {
                 //spawn enemy
                 var spawn = spawnPoints[waveGroup.SpawnIndices[spawnIndex]];
                 var position = spawn.position + (spawn.right * spawnSide * 3);
+
+                if (!played[spawnIndex])
+                {
+                    var ps = spawn.GetChild(0).GetComponent<ParticleSystem>();
+                    ps.Play();
+                    played[spawnIndex] = true;
+                }
 
                 var enemy = (GameObject)Instantiate(waveGroup.EnemyPrefab, position, spawn.rotation);
 
