@@ -469,8 +469,9 @@ public class GameManager : MonoBehaviour
 
     public void DamageFountain()
     {
-        if (fountainHealth == 1)
+        if (fountainHealth < 1)
         {
+            fountainHealth = 0;
             fountainDead = true;
             return;
         }
@@ -512,6 +513,8 @@ public class GameManager : MonoBehaviour
         if (ph.isDead || fountainDead)
         {
             isGameOver = true;
+            SyncFountainHealthSlider();
+            SyncPlayerHealthSlider();   
             return true;
         }
 
