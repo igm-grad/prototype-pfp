@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject Hellephant;
     public GameObject ZomBunny;
     public GameObject ZomBear;
+    public GameObject FountainDamageIndicator;
     public float spawnDelay = .5f;
     public float staminaDropRate = 2f;
     public float staminaRegenRate = 1f; 
@@ -28,6 +29,10 @@ public class GameManager : MonoBehaviour
     bool isGameOver;
     bool fountainDead;
     bool wasLastWave;
+
+    private GameObject FountainDamageIndicatorInstance;
+    private GameObject Player;
+    private GameObject Fountain;
 
     public bool IsConsumingStamina { get; set; }
 
@@ -391,6 +396,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Fountain = GameObject.FindGameObjectWithTag("target");
+        Player = GameObject.FindGameObjectWithTag("Player");
         SpawnWave(.5f);
     }
 
@@ -473,6 +480,11 @@ public class GameManager : MonoBehaviour
         {
             fountainDead = true;
             return;
+        }
+
+        if (!FountainDamageIndicatorInstance)
+        {
+            FountainDamageIndicatorInstance = GameObject.Instantiate(FountainDamageIndicator) as GameObject;
         }
 
         fountainHealth -= 1;
