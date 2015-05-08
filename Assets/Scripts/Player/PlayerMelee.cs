@@ -59,7 +59,7 @@ public class PlayerMelee : MonoBehaviour
     {
         var ray = Camera.main.ScreenPointToRay(screenPosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
+        if (Physics.SphereCast(ray, 5.0f, out hit, Mathf.Infinity, mask))
         {
             return hit.collider.gameObject.GetComponent<Transform>();
         }
@@ -107,13 +107,13 @@ public class PlayerMelee : MonoBehaviour
                 }
             case 1:
                 {
-                     var ray = Camera.main.ScreenPointToRay(screenPosition);
+                    /* var ray = Camera.main.ScreenPointToRay(screenPosition);
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Floor")))
                     {
                         var point = new Vector3(hit.point.x, transform.position.y, hit.point.z);
                         Debug.DrawLine(transform.position, point);
-                    }
+                    }*/
                     break;
                 }
            default:
@@ -140,7 +140,7 @@ public class PlayerMelee : MonoBehaviour
                 }
             case 1:
                 {
-                    var ray = Camera.main.ScreenPointToRay(screenPosition);
+                    /*var ray = Camera.main.ScreenPointToRay(screenPosition);
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Floor")))
                     {
@@ -154,7 +154,7 @@ public class PlayerMelee : MonoBehaviour
 
                         // Call Attack
                         LaunchProjectile(projectileDirection);
-                    }
+                    }*/
                     break;
                 }
             default:

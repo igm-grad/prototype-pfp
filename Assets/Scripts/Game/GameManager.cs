@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject Hellephant;
     public GameObject ZomBunny;
     public GameObject ZomBear;
+    public GameObject FountainDamageIndicator;
     public float spawnDelay = .5f;
     public float staminaDropRate = 2f;
     public float staminaRegenRate = 1f; 
@@ -30,6 +31,10 @@ public class GameManager : MonoBehaviour
     public bool gameLost;
     public bool gameWon;
     bool wasLastWave;
+
+    private GameObject FountainDamageIndicatorInstance;
+    private GameObject Player;
+    private GameObject Fountain;
 
     public bool IsConsumingStamina { get; set; }
 
@@ -98,8 +103,8 @@ public class GameManager : MonoBehaviour
                 Groups = new [] {
                     new WaveGroup {
                         Delay = 0,
-                        SpawnIndices = new [] { 0,1,2,3 },
-                        Size = 50,
+                        SpawnIndices = new [] { 0, 1 },
+                        Size = 4,
                         EnemyPrefab = ZomBear,
                     },
                     new WaveGroup {
@@ -393,6 +398,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Fountain = GameObject.FindGameObjectWithTag("target");
+        Player = GameObject.FindGameObjectWithTag("Player");
         SpawnWave(.5f);
     }
 
@@ -442,12 +449,21 @@ public class GameManager : MonoBehaviour
             var numSpawnIndices = waveGroup.SpawnIndices.Length;
             var spawnIndex = 0;
             var spawnSide = 1;
+            bool[] played = new bool[numSpawnIndices];
+            
             // spawn group
             for (int i = 0; i < waveGroup.Size; i++)
             {
                 //spawn enemy
                 var spawn = spawnPoints[waveGroup.SpawnIndices[spawnIndex]];
                 var position = spawn.position + (spawn.right * spawnSide * 3);
+
+                if (!played[spawnIndex])
+                {
+                    var ps = spawn.GetChild(0).GetComponent<ParticleSystem>();
+                    ps.Play();
+                    played[spawnIndex] = true;
+                }
 
                 var enemy = (GameObject)Instantiate(waveGroup.EnemyPrefab, position, spawn.rotation);
 
@@ -472,10 +488,16 @@ public class GameManager : MonoBehaviour
 
     public void DamageFountain()
     {
-        if (fountainHealth == 1)
+        if (fountainHealth < 1)
         {
+            fountainHealth = 0;
             fountainDead = true;
             return;
+        }
+
+        if (!FountainDamageIndicatorInstance)
+        {
+            FountainDamageIndicatorInstance = GameObject.Instantiate(FountainDamageIndicator) as GameObject;
         }
 
         fountainHealth -= 1;
@@ -523,6 +545,8 @@ public class GameManager : MonoBehaviour
         {
             gameWon = true;
             isGameOver = true;
+            SyncFountainHealthSlider();
+            SyncPlayerHealthSlider();   
             return true;
         }
 
