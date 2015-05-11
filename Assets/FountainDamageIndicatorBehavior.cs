@@ -3,9 +3,11 @@ using System.Collections;
 
 public class FountainDamageIndicatorBehavior : MonoBehaviour {
 
-    public float VanishingDistance;
+    public float AlphaDelay;
     private GameObject Fountain;
     private GameObject Player;
+    private float timeElapsed;
+
     // Use this for initialization
 	void Start () {
         Fountain = GameObject.FindGameObjectWithTag("target");
@@ -14,16 +16,23 @@ public class FountainDamageIndicatorBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Vector3.Distance(Player.transform.position, Fountain.transform.position) < VanishingDistance)
+        if (timeElapsed <= AlphaDelay)
         {
-           // renderer.material.color.a = 0.0f;
-        }
-        else
-        {
-           // renderer.material.color.a = 1.0f;
+            var renderer = gameObject.GetComponentInChildren<Renderer>();
+            renderer.material.color = new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, 1.0f - (timeElapsed / AlphaDelay));
+            timeElapsed += Time.deltaTime;
+            Debug.Log("DT" + Time.deltaTime);
+            Debug.Log("TE" + timeElapsed);
         }
 
         transform.position = (Fountain.transform.position + Player.transform.position) * 4 / 5;
         transform.LookAt(Fountain.transform);
 	}
+
+    public void ResetAlpha()
+    {
+        var renderer = gameObject.GetComponentInChildren<Renderer>();
+        timeElapsed = 0.0f;
+        renderer.material.color = new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, 1.0f);
+    }
 }
