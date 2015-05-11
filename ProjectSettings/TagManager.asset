@@ -16,8 +16,8 @@ TagManager:
   User Layer 8: Floor
   User Layer 9: Shootable
   User Layer 10: Navmesh Obstacle
-  User Layer 11: 
-  User Layer 12: 
+  User Layer 11: Minimap
+  User Layer 12: NonMinimap
   User Layer 13: 
   User Layer 14: 
   User Layer 15: 
