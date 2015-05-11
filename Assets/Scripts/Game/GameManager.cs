@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     public Slider staminaSlider;
     public Text waveText;
     public Text waveOutOfText;
-    public Text gameOverText;
 
     Wave[] waves;
     Transform[] spawnPoints;
@@ -413,7 +412,6 @@ public class GameManager : MonoBehaviour
             if (currentWave == 9)
             {
                 // win state
-                gameOverText.text = "Congratulations!";
                 gameWon = true;
                 //isGameOver = true;
             }
