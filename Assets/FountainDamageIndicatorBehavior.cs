@@ -21,8 +21,6 @@ public class FountainDamageIndicatorBehavior : MonoBehaviour {
             var renderer = gameObject.GetComponentInChildren<Renderer>();
             renderer.material.color = new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, 1.0f - (timeElapsed / AlphaDelay));
             timeElapsed += Time.deltaTime;
-            Debug.Log("DT" + Time.deltaTime);
-            Debug.Log("TE" + timeElapsed);
         }
 
         transform.position = (Fountain.transform.position + Player.transform.position) * 4 / 5;
