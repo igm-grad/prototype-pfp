@@ -7,7 +7,7 @@ namespace CompleteProject
     {
         public float timeBetweenAttacks = 0.5f;     // The time in seconds between each attack.
         public int attackDamage = 10;               // The amount of health taken away per attack.
-        public int attackRandomDamage = 2;
+        public int attackRandomDamage = 0;
 
         Animator anim;                              // Reference to the animator component.
         GameObject player;                          // Reference to the player GameObject.
@@ -79,7 +79,7 @@ namespace CompleteProject
             if(!playerHealth.isDead)
             {
                 // ... damage the player.
-                playerHealth.TakeDamage (attackDamage + Random.Range(-attackRandomDamage, attackRandomDamage + 1));
+                playerHealth.TakeDamage (attackDamage);
             }
         }
     }
