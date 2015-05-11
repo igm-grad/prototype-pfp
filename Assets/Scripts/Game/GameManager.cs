@@ -84,8 +84,8 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
 		playerHealth = 100;
+		fountainHealth = 20;
         stamina = 100;
-		fountainHealth = 10;
 		currentWave = 0;
 		
         SyncFountainHealthSlider();
