@@ -202,9 +202,13 @@ public class PlayerMelee : MonoBehaviour
 
     IEnumerator Ninja()
     {
+        if (trackedTransforms.Count() == 0) yield break;
+        
         isAttacking = true;
         trail.enabled = true;
         collider.enabled = false;
+
+        Vector3 dir = new Vector3(0,0,0);
 
         foreach (Transform t in trackedTransforms)
         {
@@ -212,7 +216,7 @@ public class PlayerMelee : MonoBehaviour
             if (!t) continue;
             
             //Move to target and animate
-            Vector3 dir = Vector3.Normalize(t.transform.position - transform.position);
+            dir = Vector3.Normalize(t.transform.position - transform.position);
             if (ninjaParticles)
             {
                 ninjaParticles.transform.localPosition = Vector3.zero;
@@ -242,6 +246,8 @@ public class PlayerMelee : MonoBehaviour
         trackedTransforms.Clear();
 
         isAttacking = false;
+
+        StartCoroutine(MoveObject(this.transform, this.transform.position, this.transform.position + dir * 4.0f, AnimationDelay));
 
         yield return new WaitForSeconds(AnimationDelay*2);
 
