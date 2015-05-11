@@ -85,9 +85,9 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
 		playerHealth = 100;
-		fountainHealth = 10;
         stamina = 100;
-		currentWave = 9;
+		fountainHealth = 10;
+		currentWave = 0;
 		
         SyncFountainHealthSlider();
         SyncPlayerHealthSlider();
@@ -103,26 +103,26 @@ public class GameManager : MonoBehaviour
                 Groups = new [] {
                     new WaveGroup {
                         Delay = 0,
-                        SpawnIndices = new [] { 0, 1 },
-                        Size = 4,
+                        SpawnIndices = new [] { 0 },
+                        Size = 8,
                         EnemyPrefab = ZomBear,
                     },
                     new WaveGroup {
-                        Delay = 5,
+                        Delay = 4,
                         SpawnIndices = new [] { 1 },
-                        Size = 4,
+                        Size = 8,
                         EnemyPrefab = ZomBear,
                     },
                     new WaveGroup {
-                        Delay = 5,
+                        Delay = 4,
                         SpawnIndices = new [] { 2 },
-                        Size = 4,
+                        Size = 8,
                         EnemyPrefab = ZomBear,
                     },
                     new WaveGroup {
-                        Delay = 5,
+                        Delay = 4,
                         SpawnIndices = new [] { 3 },
-                        Size = 4,
+                        Size = 8,
                         EnemyPrefab = ZomBear,
                     },
                 }
@@ -392,7 +392,6 @@ public class GameManager : MonoBehaviour
                 }
             },
         };
-
         
     }
 
