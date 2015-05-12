@@ -80,6 +80,9 @@ namespace CompleteProject
             {
                 // ... damage the player.
                 playerHealth.TakeDamage (attackDamage);
+
+                // Knock back
+                player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position + (transform.forward * 2.0f), 2.0f);
             }
         }
     }
