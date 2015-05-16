@@ -237,7 +237,13 @@ public class PlayerMelee : MonoBehaviour
             if (enemyHealth != null)
             {
                 // ... the enemy should take damage.
-                enemyHealth.TakeDamage(100000, t.position);
+                enemyHealth.TakeDamage(60, t.position);
+
+                // Remove markers
+                Transform marker = t.FindChild("Marker(Clone)");
+                if (marker)
+                    Destroy(marker.gameObject);
+
             }
 
             yield return new WaitForSeconds(AnimationDelay*1.2f);
