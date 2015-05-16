@@ -166,6 +166,9 @@ public class PlayerMelee : MonoBehaviour
 
     }
 
+    public Animator canvasAnimator;
+    
+
     void AddToTargetList(Transform transform)
     {
         if (transform && GameManager.Instance.stamina > 0)
@@ -179,6 +182,11 @@ public class PlayerMelee : MonoBehaviour
                 m.transform.parent = transform;
                 m.transform.localPosition = new Vector3(0, transform.collider.bounds.size.y * .75f, 0);
             }
+        }
+        else if (GameManager.Instance.stamina <= 0)
+        {
+            //animate warning
+            canvasAnimator.SetTrigger("Stamina");
         }
     }
 

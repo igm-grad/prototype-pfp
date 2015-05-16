@@ -500,6 +500,7 @@ public class GameManager : MonoBehaviour
         FountainDamageIndicatorInstance.GetComponent<FountainDamageIndicatorBehavior>().ResetAlpha();
 
         fountainHealth -= 1;
+        canvasAnimator.SetTrigger("FountainHealth");
         SyncFountainHealthSlider();
     }
 
