@@ -251,12 +251,12 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: StaminaWarn
-  m_Speed: 1
+  m_Speed: 1.20000005
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: da6cead60d9edc543a00bb98a1fdfdb6, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 564, y: -204, z: 0}
+  m_Position: {x: 576, y: -216, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
