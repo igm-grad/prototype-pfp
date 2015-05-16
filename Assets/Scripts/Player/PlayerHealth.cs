@@ -47,6 +47,7 @@ namespace CompleteProject
         }
 
 
+        public Animator canvasAnimator;
 
         void Update ()
         {
@@ -75,6 +76,7 @@ namespace CompleteProject
 
             // Reduce the current health by the damage amount.
             var newHealth = currentHealth - amount;
+            canvasAnimator.SetTrigger("PlayerHealth");
             var died = false;
             if (newHealth <= 0)
             {
